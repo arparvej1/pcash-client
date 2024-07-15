@@ -9,11 +9,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { GoLock } from 'react-icons/go';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { MdMailOutline } from 'react-icons/md';
-import { AuthContext } from '../../../provider/AuthProvider';
+import { AuthContext } from '../../provider/AuthProvider';
 import axios from 'axios';
 
 const Login = () => {
-  const { user, signInUser, signInWithGoogle, signInWithGithub, registerCheck, setAlreadyLogin, textDot, setTextDot } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const [textDot, setTextDot] = useState('');
   const navigate = useNavigate();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
   const location = useLocation();
@@ -23,121 +24,63 @@ const Login = () => {
     setFocus("focusEmail");
   }, [setFocus]);
 
-  useEffect(() => {
-    registerCheck();
-    if (user && !location.state) {
-      navigate('/');
-    }
-  }, [user]);
-
-  const [passwordShow, setPasswordShow] = useState(false);
-  const handlePasswordShow = () => {
-    setPasswordShow(!passwordShow);
+  const [pinShow, setPinShow] = useState(false);
+  const handlePinShow = () => {
+    setPinShow(!pinShow);
   }
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const emailOrMobile = e.target.emailOrMobile.value;
+    const pin = e.target.pin.value;
+    const userInfo = { emailOrMobile, pin }
+
+    const westernRegex = /^01\d{9}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!westernRegex.test(emailOrMobile) && !emailRegex.test(emailOrMobile)) {
+      setLoginFailedMsg('Please enter correct information.');
+      toast.error('Please enter a valid mobile number or email.');
+      return;
+    }
+
+    // PIN validation checking
+    if (!/^\d{5}$/.test(pin)) {
+      setLoginFailedMsg('Please enter correct information.');
+      toast.error('Invalid PIN.');
+      return;
+    }
+
     setTextDot('...');
 
-    // create user in firebase
-    signInUser(email, password)
-      .then(result => {
-        console.log(result.user.email);
-        console.log('Successfully Login!');
-        e.target.reset();
+    console.log(userInfo);
+    // --------- send server start -----
+    axios.post(`${import.meta.env.VITE_VERCEL_API}/userLogin`, userInfo)
+      .then(function (response) {
+        console.log(response.data);
+        // e.target.reset();
         setLoginFailedMsg('');
-        setAlreadyLogin(true);
         setTextDot('');
+        toast.success('Login Successfully!');
         navigate(location?.state ? location.state : '/');
+        console.log('Login Successfully!');
       })
-      .catch(error => {
-        console.log(error);
-        toast.error('Email & Password Not Match!');
-        setLoginFailedMsg('Please enter correct Email & Password.');
+      .catch(function (error) {
         setTextDot('');
+        console.log(error);
+        setLoginFailedMsg('Please enter correct information.');
+        toast.error('Login failed!');
       });
+    // --------- send server end -----
+
+    console.log('Request Login');
   }
 
-  const handleLoginWithGoogle = () => {
-    signInWithGoogle()
-      .then(result => {
-        const { displayName, email, photoURL } = result.user;
-        console.log(result);
-        console.log('Login Success!');
-        setAlreadyLogin(true);
-        navigate(location?.state ? location.state : '/');
-        checkEmailExists(email) // Check if the email already exists in the database
-          .then(emailExists => {
-            if (!emailExists) {
-              // If email does not exist, add the user to the database
-              const userData = { email, name: displayName, photoURL };
-              addUserToDatabase(userData);
-            } else {
-              console.log('Email already exists in the database. Skipping user addition.');
-            }
-          })
-          .catch(error => {
-            console.error('Error checking if email exists:', error);
-          });
-      })
-      .catch(error => {
-        console.error('Google sign-in failed:', error);
-      });
-  };
-
-  const checkEmailExists = async (email) => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_VERCEL_API}/checkEmail/${email}`);
-      return response.data.exists;
-    } catch (error) {
-      console.error('Error checking if email exists:', error);
-      throw error;
-    }
-  };
-
-  const addUserToDatabase = (userData) => {
-    axios.post(`${import.meta.env.VITE_VERCEL_API}/allUsers`, userData)
-      .then(response => {
-        console.log('User added to the database:', response.data);
-      })
-      .catch(error => {
-        console.error('Error adding user to the database:', error);
-      });
-  };
-
-
-  const handleLoginWithGithub = () => {
-    signInWithGithub()
-      .then(result => {
-        const { displayName, email } = result.user;
-        console.log(result.user.displayName);
-        console.log('Login Success!');
-        setAlreadyLogin(true);
-        navigate(location?.state ? location.state : '/');
-        checkEmailExists(email) // Check if the email already exists in the database
-          .then(emailExists => {
-            if (!emailExists) {
-              // If email does not exist, add the user to the database
-              addUserToDatabase({ email, name: displayName });
-            } else {
-              console.log('Email already exists in the database. Skipping user addition.');
-            }
-          })
-          .catch(error => {
-            console.error('Error checking if email exists:', error);
-          });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
 
   return (
     <>
       <Helmet>
-        <title> Login | ScholarPoint </title>
+        <title> Login | pCash </title>
       </Helmet>
       <div className='flex flex-col md:flex-row max-w-7xl mx-auto mt-8'>
         <div className='hidden md:block'>
@@ -149,21 +92,21 @@ const Login = () => {
           </h3>
           <form onSubmit={handleLogin} className='flex flex-col gap-3 '>
             <div>
-              <span className='text-white'>Email:</span>
-              <label className="flex items-center input input-bordered gap-3" htmlFor="email">
+              <span className='text-white'>Email or Mobile Number:</span>
+              <label className="flex items-center input input-bordered gap-3" htmlFor="emailOrMobile">
                 <MdMailOutline />
-                <input type="email" {...register("focusEmail")} name='email' placeholder="Email" className="w-full" required />
+                <input type="text" {...register("focusEmail")} name='emailOrMobile' placeholder="Enter your email or mobile number" className="w-full" required />
               </label>
             </div>
             <div>
-              <span className='text-white'>Password:</span>
+              <span className='text-white'>PIN:</span>
               <label className="flex items-center input input-bordered gap-3" htmlFor="email">
                 <GoLock />
                 <div className="flex justify-between items-center w-full bg-transparent">
-                  <input type={passwordShow ? 'text' : 'password'} name='password' placeholder="Password" className="w-full" required /><span onClick={handlePasswordShow}>{passwordShow ? <VscEye /> : <VscEyeClosed />}</span>
+                  <input type={pinShow ? 'text' : 'pin'} name='pin' placeholder="pin" className="w-full" required /><span onClick={handlePinShow}>{pinShow ? <VscEye /> : <VscEyeClosed />}</span>
                 </div>
               </label>
-              <p className='pt-1 text-red-500'>{loginFailedMsg}</p>
+              {loginFailedMsg && <div className='mt-2 bg-blue-300 bg-opacity-75 p-3 rounded-2xl text-red-500'>{loginFailedMsg}</div>}
             </div>
             <div>
               <input type="submit" value={`Login${textDot}`} className="btn btn-accent w-full  font-semibold text-xl" />
@@ -175,33 +118,6 @@ const Login = () => {
               <Link state={location?.state} to='/register' className="font-semibold hover:underline">Register here</Link>
             </p>
           </div>
-          <div className="text-sm text-gray-300 text-center">
-            <div className="divider">OR</div>
-          </div>
-          <div>
-            <h3 className='text-center text-gray-200'>Join with social accounts.</h3>
-            <div className="mt-4 flex flex-wrap gap-3 items-center justify-center">
-              <div>
-                <button
-                  onClick={handleLoginWithGoogle}
-                  className="flex gap-2 btn border border-gray-200 bg-white"
-                >
-                  <FcGoogle className='text-2xl' />
-                  Google
-                </button>
-              </div>
-              <div>
-                <button
-                  onClick={handleLoginWithGithub}
-                  className="flex gap-2 btn border border-gray-200 bg-white"
-                >
-                  <FaGithub className="text-2xl" />
-                  Github
-                </button>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
       <ToastContainer />

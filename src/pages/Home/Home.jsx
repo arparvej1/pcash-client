@@ -17,10 +17,9 @@ const Home = () => {
       <div>Hello pCash!</div>
       <br /><br />
       <p>
-        <Link to="/register">Register</Link>
+        <Link className="btn btn-primary" to="/register">Register</Link>
+        <Link className="btn btn-primary" to="/login">Login</Link>
       </p>
-      <br />
-      <button className="btn btn-primary" onClick={clickMe}>Click Me</button>
     </div>
   );
 };

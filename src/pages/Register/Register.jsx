@@ -59,13 +59,14 @@ const Register = () => {
 
     console.log(newRegister);
     // --------- send server start -----
-    axios.post(`${import.meta.env.VITE_VERCEL_API}/users`, newRegister)
+    axios.post(`${import.meta.env.VITE_VERCEL_API}/userRegister`, newRegister)
       .then(function (response) {
         console.log(response.data);
-        // e.target.reset();
+        e.target.reset();
         setTextDot('');
         toast.success('Registration Successfully!');
         console.log('Registration Successfully!');
+        navigate(location?.state ? location.state : '/');
       })
       .catch(function (error) {
         setTextDot('');

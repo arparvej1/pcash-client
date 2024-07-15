@@ -5,7 +5,7 @@ import Root from "../layouts/Root";
 import Home from "../pages/Home/Home";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Register from "../pages/Register/Register";
-// import Login from "../pages/User/Login/Login";
+import Login from "../pages/Login/Login";
 // import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 // import Profile from "../pages/User/Profile/Profile";
 
@@ -19,10 +19,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home></Home>
       },
-      // {
-      //   path: '/login',
-      //   element: <Login></Login>
-      // },
+      {
+        path: '/login',
+        element: <Login></Login>
+      },
       {
         path: '/register',
         element: <Register></Register>
