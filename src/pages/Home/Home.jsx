@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Home = () => {
@@ -15,6 +16,10 @@ const Home = () => {
       </Helmet>
       <div>Hello pCash!</div>
       <br /><br />
+      <p>
+        <Link to="/register">Register</Link>
+      </p>
+      <br />
       <button className="btn btn-primary" onClick={clickMe}>Click Me</button>
     </div>
   );
