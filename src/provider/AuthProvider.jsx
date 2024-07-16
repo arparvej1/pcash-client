@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       axiosPublic.post(`/userCheck`, { token })
         .then(function (response) {
-          console.log(response.data);
+          // console.log(response.data);
           setUser(response.data); // Assuming user is authenticated based on response
           setLoading(false);
         })

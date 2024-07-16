@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useAuth from '../useAuth';
 
-const TransactionTable = ({ transactions }) => {
+const RequestTransactionTable = ({ transactions, handleAcceptCashOut }) => {
   const { user } = useAuth();
   return (
     <div className="overflow-x-auto">
@@ -22,7 +22,7 @@ const TransactionTable = ({ transactions }) => {
           {transactions.map(transaction => (
             <tr key={transaction._id} className="border-b border-gray-200 hover">
               <td className="text-left py-2 px-4">{transaction.transactionId}</td>
-              {user.role === 'admin' && <td className="text-center py-2 px-4">{transaction.senderMobile}</td>}
+              {user.role === 'admin' && <td className="text-center py-2 px-4">{transaction?.senderMobile}</td>}
               <td className="text-center py-2 px-4">{user.role === 'user' && transaction.receiverMobile === user.mobileNumber ? transaction.transactionType === 'Bonus' ? 'Bonus' : 'Received Money' : transaction.transactionType}</td>
 
 
@@ -33,7 +33,11 @@ const TransactionTable = ({ transactions }) => {
               <td className="text-center py-2 px-4">{transaction.amount}</td>
               <td className="text-center py-2 px-4">{transaction.fee}</td>
               <td className="text-center py-2 px-4">{transaction.transactionTime}</td>
-              <td className="text-center py-2 px-4">{transaction.status}</td>
+              <td className="text-center py-2 px-4">
+                <span
+                  onClick={() => handleAcceptCashOut(transaction)}
+                  className={`${transaction.status === 'pending' ? 'cursor-pointer bg-blue-700 text-white btn' : ''}`}>{transaction.status === 'pending' ? 'Accept' : transaction.status}</span>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -42,8 +46,9 @@ const TransactionTable = ({ transactions }) => {
   );
 };
 
-TransactionTable.propTypes = {
-  transactions: PropTypes.array
+RequestTransactionTable.propTypes = {
+  transactions: PropTypes.array,
+  handleAcceptCashOut: PropTypes.func
 }
 
-export default TransactionTable;
+export default RequestTransactionTable;

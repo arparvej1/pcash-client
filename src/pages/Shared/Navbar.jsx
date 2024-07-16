@@ -18,10 +18,6 @@ const Navbar = () => {
     setTheme(localTheme);
   }, [theme]);
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const handleTheme = e => {
     if (e.target.checked) {
       setTheme('dark');
