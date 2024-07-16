@@ -1,15 +1,23 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../pages/Shared/Navbar";
-// import Footer from "../pages/Shared/Footer";
+import Sidebar from "../pages/Shared/Sidebar";
 
 const Root = () => {
   return (
     <>
       <div className="max-w-screen-xl mx-5 xl:px-5 2xl:px-0 xl:mx-auto">
-        <Navbar></Navbar>
-        <Outlet></Outlet>
+        {/* <div className="max-w-full bg-neutral text-neutral-content p-2">
+          <Navbar></Navbar>
+        </div> */}
+        <div className="grid md:grid-cols-6">
+          <div className="col-span-1">
+            <Sidebar></Sidebar>
+          </div>
+          <div className="md:col-span-5 max-w-screen-xl 2xl:px-0 bg-green-400">
+            <Outlet></Outlet>
+          </div>
+        </div>
       </div>
-      {/* <Footer></Footer> */}
+
     </>
   );
 };

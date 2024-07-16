@@ -36,18 +36,11 @@ const Navbar = () => {
   }
   const navLinks = <>
     <li><NavLink to='/'>Home</NavLink></li>
-    <li><NavLink to='/all-products'>All Products</NavLink></li>
-    {
-      user && <>
-        <li><NavLink to='/dashboard'>Dashboard</NavLink></li>
-      </>
-    }
   </>
   const pNavLinks = <>
     {
       user && <>
         <li><NavLink to='/dashboard/profile'>Profile</NavLink></li>
-
       </>
     }
   </>

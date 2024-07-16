@@ -8,7 +8,13 @@ const Home = () => {
       <Helmet>
         <title>pCash</title>
       </Helmet>
-      <div>Hello pCash!</div>
+      <div>
+        
+      </div>
+
+
+
+
       <br /><br />
       <p>
         <Link className="btn btn-primary" to="/register">Register</Link>

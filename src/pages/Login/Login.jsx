@@ -79,7 +79,12 @@ const Login = () => {
 
     console.log('Request Login');
   }
-
+  
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <>

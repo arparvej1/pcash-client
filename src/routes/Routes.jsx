@@ -6,8 +6,9 @@ import Home from "../pages/Home/Home";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import Profile from "../pages/Profile/Profile";
+import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 // import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
-// import Profile from "../pages/User/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -17,21 +18,42 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home></Home>
+        element: <PrivateRoutes><Home></Home></PrivateRoutes>
       },
       {
-        path: '/login',
-        element: <Login></Login>
+        path: '/profile',
+        // element: <Profile></Profile>
+        element: <PrivateRoutes><Profile></Profile></PrivateRoutes>
       },
-      {
-        path: '/register',
-        element: <Register></Register>
-      },
-      // {
-      //   path: '/profile',
-      //   element: <PrivateRoutes><Profile></Profile></PrivateRoutes>
-      // },
     ]
+  },
+  // {
+  //   path: 'dashboard',
+  //   element: <DashboardLayout></DashboardLayout>,
+  //   children: [
+  //     {
+  //       path: '',
+  //       // element: <DashBoard></DashBoard>
+  //       element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
+  //     },
+  //     // ------------- user dashboard start -----------------
+
+  //     // ------------- user dashboard end -----------------
+  //     // ------------- agent dashboard start -----------------
+
+  //     // ------------- agent dashboard end -----------------
+  //     // ------------- admin dashboard start -----------------
+
+  //     // ------------- admin dashboard end -----------------
+  //   ]
+  // },
+  {
+    path: '/login',
+    element: <Login></Login>
+  },
+  {
+    path: '/register',
+    element: <Register></Register>
   }
 ]);
 

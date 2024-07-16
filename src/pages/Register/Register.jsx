@@ -106,9 +106,9 @@ const Register = () => {
         <title> Register | pCash </title>
       </Helmet>
 
-      <div className='flex flex-col md:flex-row max-w-7xl mx-auto mt-8'>
+      <div className='flex flex-col md:flex-row max-w-7xl mx-auto mt-2'>
         {/* ------ */}
-        <div className='md:w-2/3 lg:w-2/5 rounded-2xl bg-base-200 p-5 md:p-10 md:mx-auto bg-[url("https://wallpapercave.com/wp/wp2939993.jpg")] bg-cover'>
+        <div className='md:w-2/3 lg:w-2/5 rounded-2xl bg-base-200 p-5 md:p-8 md:mx-auto bg-[url("https://wallpapercave.com/wp/wp2939993.jpg")] bg-cover'>
           <h3 className="text-3xl font-semibold mb-6 text-center text-white">
             New Account?
           </h3>
@@ -120,14 +120,6 @@ const Register = () => {
                 <input type="text" {...register("fullName")} name='name' placeholder="Full Name" className="w-full" required />
               </label>
             </div>
-            {/* <div>
-              <span className='text-white'>Photo URL:</span>
-              <label className="flex items-center input input-bordered gap-3" htmlFor="photo_url">
-                <TbPhotoEdit />
-                <input type="text" name='photo_url' placeholder="Photo URL" className="w-full" required />
-              </label>
-            </div> */}
-
             <div>
               <span className='text-white'>Profile Picture:</span>
               <label  htmlFor="profilePicture">
