@@ -13,7 +13,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import axios from 'axios';
 
 const Login = () => {
-  const { user } = useContext(AuthContext);
+  const { user, setToken } = useContext(AuthContext);
   const [textDot, setTextDot] = useState('');
   const navigate = useNavigate();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
@@ -59,6 +59,10 @@ const Login = () => {
       .then(function (response) {
         console.log(response.data);
         // e.target.reset();
+        if (response.data.token) {
+          localStorage.setItem('access-token', response.data.token);
+          setToken(response.data.token);
+        }
         setLoginFailedMsg('');
         setTextDot('');
         toast.success('Login Successfully!');

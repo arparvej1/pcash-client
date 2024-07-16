@@ -1,13 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const Home = () => {
-
-  const clickMe = () => {
-    console.log('object');
-    toast.success('Click!')
-  }
 
   return (
     <div>
