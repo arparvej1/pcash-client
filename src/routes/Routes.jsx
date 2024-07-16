@@ -8,6 +8,10 @@ import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import Profile from "../pages/Profile/Profile";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import SendMoney from "../pages/ForUser/SendMoney/SendMoney";
+import CashIn from "../pages/ForUser/CashIn/CashIn";
+import CashOut from "../pages/ForUser/CashOut/CashOut";
+import UserTransactionsHistory from "../pages/ForUser/UserTransactionsHistory/UserTransactionsHistory";
 // import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -22,9 +26,32 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        // element: <Profile></Profile>
         element: <PrivateRoutes><Profile></Profile></PrivateRoutes>
       },
+      // ------------- user start -----------------
+      {
+        path: '/send-money',
+        element: <PrivateRoutes><SendMoney></SendMoney></PrivateRoutes>
+      },
+      {
+        path: '/cash-out',
+        element: <PrivateRoutes><CashOut></CashOut></PrivateRoutes>
+      },
+      {
+        path: '/cash-in',
+        element: <PrivateRoutes><CashIn></CashIn></PrivateRoutes>
+      },
+      {
+        path: '/transactions-history',
+        element: <PrivateRoutes><UserTransactionsHistory></UserTransactionsHistory></PrivateRoutes>
+      },
+      // ------------- user end -----------------
+      // ------------- agent start -----------------
+
+      // ------------- agent end -----------------
+      // ------------- admin start -----------------
+
+      // ------------- admin end -----------------
     ]
   },
   // {
@@ -36,15 +63,6 @@ const router = createBrowserRouter([
   //       // element: <DashBoard></DashBoard>
   //       element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
   //     },
-  //     // ------------- user dashboard start -----------------
-
-  //     // ------------- user dashboard end -----------------
-  //     // ------------- agent dashboard start -----------------
-
-  //     // ------------- agent dashboard end -----------------
-  //     // ------------- admin dashboard start -----------------
-
-  //     // ------------- admin dashboard end -----------------
   //   ]
   // },
   {

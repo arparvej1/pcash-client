@@ -30,23 +30,33 @@ const Navbar = () => {
     }
   };
   // -------- theme end -----------------
+  const [showBalance, setShowBalance] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (showBalance) {
+        setShowBalance(false);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
+  }, [showBalance]);
+
 
   const handleLogOut = () => {
     logOut()
   }
   const navLinks = <>
-    <li><NavLink to='/'>Home</NavLink></li>
+    {/* <li><NavLink to='/'>Home</NavLink></li> */}
   </>
   const pNavLinks = <>
     {
       user && <>
-        <li><NavLink to='/dashboard/profile'>Profile</NavLink></li>
+        <li><NavLink to='/profile'>Profile</NavLink></li>
       </>
     }
   </>
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -56,7 +66,7 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-        <Link to='/' className="btn bg-gradient-to-r from-sky-400 to-blue-500 text-xl md:text-2xl text-white">pCash</Link>
+        <Link to='/' className="btn bg-gradient-to-r from-orange-400 to-yellow-500 text-xl md:text-2xl text-white">pCash</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-lg">
@@ -64,6 +74,17 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
+        {/* --------- balance start -------- */}
+        <div className='flex justify-end'>
+          <div className='flex min-w-48 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
+            <p>Balance: </p>
+            {/* <div className="divider my-0"></div> */}
+            <p className='cursor-pointer w-full text-center' onClick={() => setShowBalance(!showBalance)}>
+              <span>{showBalance ? user.balance : "Tap for Balance"}</span>
+            </p>
+          </div>
+        </div>
+        {/* --------- balance start -------- */}
         {
           user ?
             <div className="dropdown dropdown-end">
@@ -99,11 +120,7 @@ const Navbar = () => {
               </div>
             </Link>
         }
-        <div className='hidden md:block'>
-          {
-            user ? <span onClick={handleLogOut} className='ml-2 btn md:text-lg'>LogOut <FaSignOutAlt /></span> : <Link className='btn md:text-lg' to='/login'>Login</Link>
-          }
-        </div>
+        
         {/* --------- theme start -------- */}
         <label className="ml-2 cursor-pointer grid place-items-center">
           <input
