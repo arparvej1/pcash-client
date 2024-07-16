@@ -12,6 +12,7 @@ import { GoLock } from "react-icons/go";
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import axios from 'axios';
 import { FaMobileAlt } from 'react-icons/fa';
+import useUploadImage from '../../hooks/useUploadImage';
 
 
 const Register = () => {
@@ -21,20 +22,26 @@ const Register = () => {
   const [errorMobile, setErrorMobile] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const uploadImage_imgbb = useUploadImage();
 
   const [pinShow, setPinShow] = useState(false);
   const handlePinShow = () => {
     setPinShow(!pinShow);
   }
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
+    const uploadImage = e.target.profilePicture;
+    const profilePicture = await uploadImage_imgbb(uploadImage);
+    if (!profilePicture) return;
+
     const name = e.target.name.value;
-    const photo_url = e.target.photo_url.value;
+    // const photo_url = e.target.photo_url.value;
     const email = e.target.email.value;
     const mobileNumber = e.target.mobileNumber.value;
     const pin = e.target.pin.value;
-    const newRegister = { name, photo_url, email, mobileNumber, pin };
+    const newRegister = { name, photo_url: profilePicture, email, mobileNumber, pin };
 
     const westernRegex = /^01\d{9}$/;
     if (!westernRegex.test(mobileNumber)) {
@@ -113,11 +120,18 @@ const Register = () => {
                 <input type="text" {...register("fullName")} name='name' placeholder="Full Name" className="w-full" required />
               </label>
             </div>
-            <div>
+            {/* <div>
               <span className='text-white'>Photo URL:</span>
-              <label className="flex items-center input input-bordered gap-3" htmlFor="email">
+              <label className="flex items-center input input-bordered gap-3" htmlFor="photo_url">
                 <TbPhotoEdit />
                 <input type="text" name='photo_url' placeholder="Photo URL" className="w-full" required />
+              </label>
+            </div> */}
+
+            <div>
+              <span className='text-white'>Profile Picture:</span>
+              <label  htmlFor="profilePicture">
+                <input type="file" name="profilePicture" className="file-input file-input-bordered w-full" />
               </label>
             </div>
             <div>

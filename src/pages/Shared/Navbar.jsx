@@ -6,7 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Navbar = () => {
-  const { user, logOut, avatarIcon } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   // -------- theme start -----------------
   const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
@@ -16,7 +16,11 @@ const Navbar = () => {
     const localTheme = localStorage.getItem('theme');
     document.querySelector('html').setAttribute('data-theme', localTheme);
     setTheme(localTheme);
-  }, [theme])
+  }, [theme]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   const handleTheme = e => {
     if (e.target.checked) {
@@ -29,8 +33,6 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     logOut()
-      // .then(console.log('Successfully LogOut.'))
-      // .catch(error => console.log(error))
   }
   const navLinks = <>
     <li><NavLink to='/'>Home</NavLink></li>
@@ -75,7 +77,7 @@ const Navbar = () => {
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
                   <div data-tooltip-id="my-tooltip-1" style={{ backgroundColor: "#999" }}>
-                    <img alt={user.email} src={user.photoURL || (avatarIcon && "https://i.ibb.co/ZT5tByN/avatar-15-blue.jpg")} />
+                    <img alt={user.email} src={user.photo_url ? user.photo_url : "https://i.ibb.co/ZT5tByN/avatar-15-blue.jpg"} />
                   </div>
                 </div>
               </div>
