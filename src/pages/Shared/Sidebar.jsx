@@ -1,21 +1,16 @@
 import { FaSignOutAlt } from "react-icons/fa";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Sidebar = () => {
   const { user, logOut } = useAuth();
-  const location = useLocation();
-  // const { isAdmin, adminLoading, isAgent, agentLoading, isAgentOrAdmin, agentOrAdminLoading } = useUserPower();
-  const isAgent = true;
-  const isAdmin = true;
 
   const navLinks = <>
     <li><NavLink to='/'>Home</NavLink></li>
-    {/* <li><Link className={`${location.pathname === "/dashboard" ? 'active' : undefined}`} to='/dashboard'>Dashboard</Link></li> */}
     <li><NavLink to='/profile'>Profile</NavLink></li>
     {
-      user && <>
-        <li className="bg-info text-info-content text-center font-semibold text-base py-1">Normal User</li>
+      user && user.role === 'user'  && <>
+        <li className="bg-info text-info-content text-center font-semibold text-base py-1 hidden md:inline-block">Normal User</li>
         <li><NavLink to='/send-money'>Send Money</NavLink></li>
         <li><NavLink to='/cash-out'>Cash Out</NavLink></li>
         <li><NavLink to='/cash-in'>Cash In</NavLink></li>
@@ -23,8 +18,8 @@ const Sidebar = () => {
       </>
     }
     {
-      isAgent && <>
-        <li className="bg-info text-info-content text-center font-semibold text-base py-1">Agent</li>
+      user && user.role === 'agent' && <>
+        <li className="bg-info text-info-content text-center font-semibold text-base py-1 hidden md:inline-block">Agent</li>
         <li><NavLink to='/cash-out-manage'>Cash Out Manage</NavLink></li>
         <li><NavLink to='/cash-in-manage'>Cash In Manage</NavLink></li>
         <li><NavLink to='/agent-transactions-history'>Transactions History</NavLink></li>
@@ -32,8 +27,8 @@ const Sidebar = () => {
       </>
     }
     {
-      isAdmin && <>
-        <li className="bg-info text-info-content text-center font-semibold text-base py-1">Admin</li>
+      user && user.role === 'admin' && <>
+        <li className="bg-info text-info-content text-center font-semibold text-base py-1 hidden md:inline-block">Admin</li>
         <li><NavLink to='/user-manage'>User Manage</NavLink></li>
         <li><NavLink to='/all-transactions-history'>All Transactions History</NavLink></li>
       </>

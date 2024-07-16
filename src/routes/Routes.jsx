@@ -17,7 +17,8 @@ import CashInManage from "../pages/ForAgent/CashInManage/CashInManage";
 import AgentTransactionsHistory from "../pages/ForAgent/AgentTransactionsHistory/AgentTransactionsHistory";
 import AllTransactionsHistory from "../pages/ForAdmin/AllTransactionsHistory/AllTransactionsHistory";
 import UserManage from "../pages/ForAdmin/UserManage/UserManage";
-// import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import AdminRoutes from "../PrivateRoutes/isAdmin/AdminRoutes";
+import AgentRoutes from "../PrivateRoutes/isAgent/AgentRoutes";
 
 const router = createBrowserRouter([
   {
@@ -54,40 +55,29 @@ const router = createBrowserRouter([
       // ------------- agent start -----------------
       {
         path: '/cash-out-manage',
-        element: <PrivateRoutes><CashOutManage></CashOutManage></PrivateRoutes>
+        element: <AgentRoutes><CashOutManage></CashOutManage></AgentRoutes>
       },
       {
         path: '/cash-in-manage',
-        element: <PrivateRoutes><CashInManage></CashInManage></PrivateRoutes>
+        element: <AgentRoutes><CashInManage></CashInManage></AgentRoutes>
       },
       {
         path: '/agent-transactions-history',
-        element: <PrivateRoutes><AgentTransactionsHistory></AgentTransactionsHistory></PrivateRoutes>
+        element: <AgentRoutes><AgentTransactionsHistory></AgentTransactionsHistory></AgentRoutes>
       },
       // ------------- agent end -----------------
       // ------------- admin start -----------------
       {
         path: '/user-manage',
-        element: <PrivateRoutes><UserManage></UserManage></PrivateRoutes>
+        element: <AdminRoutes><UserManage></UserManage></AdminRoutes>
       },
       {
         path: '/all-transactions-history',
-        element: <PrivateRoutes><AllTransactionsHistory></AllTransactionsHistory></PrivateRoutes>
+        element: <AdminRoutes><AllTransactionsHistory></AllTransactionsHistory></AdminRoutes>
       },
       // ------------- admin end -----------------
     ]
   },
-  // {
-  //   path: 'dashboard',
-  //   element: <DashboardLayout></DashboardLayout>,
-  //   children: [
-  //     {
-  //       path: '',
-  //       // element: <DashBoard></DashBoard>
-  //       element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>
-  //     },
-  //   ]
-  // },
   {
     path: '/login',
     element: <Login></Login>

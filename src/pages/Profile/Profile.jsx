@@ -1,14 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
-import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
 
 const Profile = () => {
   const { user } = useAuth();
-  // const { isAdmin, isAgent } = useUserPower();
-  const isAdmin = true;
-  const isAgent = true;
   const [showBalance, setShowBalance] = useState(false);
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -33,9 +29,10 @@ const Profile = () => {
           <div className='flex flex-col gap-2'>
             <h3 className='text-xl font-semibold'>{user.name}</h3>
             <p>{user.email}</p>
+            <p>{user.mobileNumber}</p>
             <div className='flex'>
-              {isAdmin && <p className='p-2 m-1 bg-success rounded-xl text-white font-semibold'>Admin</p>}
-              {isAgent && <p className='p-2 m-1 bg-success rounded-xl text-white font-semibold'>Moderator</p>}
+              {user.role === 'admin' && <p className='p-2 m-1 bg-success rounded-xl text-white font-semibold'>Admin</p>}
+              {user.role === 'agent' && <p className='p-2 m-1 bg-success rounded-xl text-white font-semibold'>Agent</p>}
             </div>
           </div>
           <div className='text-right navbar-end'>

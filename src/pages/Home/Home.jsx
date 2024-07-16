@@ -18,8 +18,8 @@ const Home = () => {
       <Helmet>
         <title>pCash</title>
       </Helmet>
-      <div>
-        Hello, {user.name}!
+      <div className="text-black text-2xl font-semibold">
+        Hello, {user?.name}!
       </div>
     </div>
   );

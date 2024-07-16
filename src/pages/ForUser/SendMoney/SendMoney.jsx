@@ -56,7 +56,7 @@ const SendMoney = () => {
     axiosSecure.post(`/send-money`, sendMoneyInfo)
       .then(function (response) {
         console.log(response.data);
-        // e.target.reset();
+        e.target.reset();
         if (response.data.token) {
           console.log(response.data);
         }
@@ -83,28 +83,28 @@ const SendMoney = () => {
       <Helmet>
         <title> Send Money | pCash </title>
       </Helmet>
-      <h3 className="font-semibold text-2xl text-center my-3">Send Money</h3>
+      <h3 className="font-semibold text-2xl text-center my-3 text-black">Send Money</h3>
       <div>
         <form
           onSubmit={handleSendMoney}
-          className="w-3/4 mx-auto gap-5">
+          className="w-3/4 mx-auto gap-5 text-black">
           <div className="border-2 border-primary rounded-xl p-5 md:w-2/3 lg:w-3/5 mx-auto">
             <label className="form-control w-full">
               <div>
-                <span className="label-text font-semibold">Email or Mobile Number</span>
+                <span className="font-semibold">Email or Mobile Number</span>
               </div>
               <input type="text" name="emailOrMobile" placeholder="Enter email or mobile number" className="input input-bordered w-full" required />
             </label>
             <br />
             <label className="form-control w-full">
               <div>
-                <span className="label-text font-semibold">Amount (Fee of 5 Taka for transfers over 100 Taka.)</span>
+                <span className="font-semibold">Amount (Fee of 5 Taka for transfers over 100 Taka.)</span>
               </div>
               <input type="text" name="amount" placeholder="Enter amount" className="input input-bordered w-full" />
             </label>
             <br />
             <div>
-              <span>PIN:</span>
+              <span className="font-semibold">PIN:</span>
               <label className="flex items-center input input-bordered gap-3" htmlFor="email">
                 <GoLock />
                 <div className="flex justify-between items-center w-full bg-transparent">

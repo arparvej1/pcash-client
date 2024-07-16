@@ -72,14 +72,18 @@ const Login = () => {
       .catch(function (error) {
         setTextDot('');
         console.log(error);
-        setLoginFailedMsg('Please enter correct information.');
-        toast.error('Login failed!');
+        if (error.response.data === 'user blocked') {
+          toast.error('Login failed! This User Blocked.');
+        } else {
+          setLoginFailedMsg('Please enter correct information.');
+          toast.error('Login failed!');
+        }
       });
     // --------- send server end -----
 
     console.log('Request Login');
   }
-  
+
   useEffect(() => {
     if (user) {
       navigate('/');
