@@ -108,7 +108,7 @@ const SendMoney = () => {
               <label className="flex items-center input input-bordered gap-3" htmlFor="email">
                 <GoLock />
                 <div className="flex justify-between items-center w-full bg-transparent">
-                  <input type={pinShow ? 'text' : 'pin'} name='pin' placeholder="pin" className="w-full" required /><span onClick={handlePinShow}>{pinShow ? <VscEye /> : <VscEyeClosed />}</span>
+                  <input type={pinShow ? 'text' : 'password'} name='pin' placeholder="pin" className="w-full" required /><span onClick={handlePinShow}>{pinShow ? <VscEye /> : <VscEyeClosed />}</span>
                 </div>
               </label>
               {loginFailedMsg && <div className='mt-2 bg-blue-300 bg-opacity-75 p-3 rounded-2xl text-red-500'>{loginFailedMsg}</div>}

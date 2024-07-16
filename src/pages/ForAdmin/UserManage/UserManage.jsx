@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth"; // Assuming this hook handles auth
 import useAxiosSecure from "../../../hooks/useAxiosSecure"; // Assuming this hook handles secure Axios requests
 import { Helmet } from "react-helmet-async"; // For setting page title dynamically
 import './user_manage.css';
+import { toast } from "react-toastify";
 
 const UserManage = () => {
   const { user } = useAuth(); // Assuming useAuth hook provides authenticated user information
@@ -34,6 +35,9 @@ const UserManage = () => {
   };
 
   const handleToggle = async (userId, active) => {
+    if (userId === user._id) {
+      return toast.error('You cannot block yourself!')
+    }
     try {
       // Perform action based on toggle (activate or block)
       const action = active ? "activate" : "block";
