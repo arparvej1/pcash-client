@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
@@ -22,15 +21,6 @@ const Home = () => {
       <div>
         Hello, {user.name}!
       </div>
-
-
-
-
-      <br /><br />
-      <p>
-        <Link className="btn btn-primary" to="/register">Register</Link>
-        <Link className="btn btn-primary" to="/login">Login</Link>
-      </p>
     </div>
   );
 };

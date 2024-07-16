@@ -4,8 +4,10 @@ import { GoLock } from "react-icons/go";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../../hooks/useAuth";
 
 const SendMoney = () => {
+  const { onAuthStateChanged } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
 
@@ -17,7 +19,6 @@ const SendMoney = () => {
   const handleSendMoney = (e) => {
     e.preventDefault();
     const form = e.target;
-    // const agentId = dynamicAgentIdGenerator();
     const emailOrMobile = form.emailOrMobile.value;
     const amount = form.amount.value;
     const pin = e.target.pin.value;
@@ -60,12 +61,17 @@ const SendMoney = () => {
           console.log(response.data);
         }
         toast.success('Send Money Successfully!');
+        onAuthStateChanged();
         // navigate(location?.state ? location.state : '/');
         console.log('Send Money Successfully!');
       })
       .catch(function (error) {
+        if (error.response.data) {
+          toast.warn(error.response.data);
+        } else {
+          toast.error('Send Money failed!');
+        }
         console.log(error);
-        toast.error('Send Money failed!');
       });
     // --------- send server end -----
     console.log('Request Send Money.');
@@ -77,7 +83,7 @@ const SendMoney = () => {
       <Helmet>
         <title> Send Money | pCash </title>
       </Helmet>
-      SendMoney
+      <h3 className="font-semibold text-2xl text-center my-3">Send Money</h3>
       <div>
         <form
           onSubmit={handleSendMoney}
@@ -92,12 +98,13 @@ const SendMoney = () => {
             <br />
             <label className="form-control w-full">
               <div>
-                <span className="label-text font-semibold">Amount</span>
+                <span className="label-text font-semibold">Amount (Fee of 5 Taka for transfers over 100 Taka.)</span>
               </div>
               <input type="text" name="amount" placeholder="Enter amount" className="input input-bordered w-full" />
             </label>
+            <br />
             <div>
-              <span className='text-white'>PIN:</span>
+              <span>PIN:</span>
               <label className="flex items-center input input-bordered gap-3" htmlFor="email">
                 <GoLock />
                 <div className="flex justify-between items-center w-full bg-transparent">

@@ -45,7 +45,8 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     setToken,
-    logOut
+    logOut,
+    onAuthStateChanged
   }
 
   return (
