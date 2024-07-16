@@ -37,11 +37,11 @@ const Register = () => {
     if (!profilePicture) return;
 
     const name = e.target.name.value;
-    // const photo_url = e.target.photo_url.value;
     const email = e.target.email.value;
     const mobileNumber = e.target.mobileNumber.value;
     const pin = e.target.pin.value;
-    const newRegister = { name, photo_url: profilePicture, email, mobileNumber, pin };
+    const userType = e.target.userType.value;
+    const newRegister = { name, photo_url: profilePicture, email, mobileNumber, pin, userType };
 
     const westernRegex = /^01\d{9}$/;
     if (!westernRegex.test(mobileNumber)) {
@@ -122,7 +122,7 @@ const Register = () => {
             </div>
             <div>
               <span className='text-white'>Profile Picture:</span>
-              <label  htmlFor="profilePicture">
+              <label htmlFor="profilePicture">
                 <input type="file" name="profilePicture" className="file-input file-input-bordered w-full" />
               </label>
             </div>
@@ -150,6 +150,17 @@ const Register = () => {
                 </div>
               </label>
               {pinMsg && <div className='mt-2 bg-blue-300 bg-opacity-75 p-3 rounded-2xl text-red-500'>{pinMsg}</div>}
+            </div>
+            <div className='text-white flex gap-3 items-center'>
+              <span>User Type:</span>
+              <label className="flex items-center gap-3 border-2 p-2 bg-gray-600 rounded-xl">
+                <input type="radio" name="userType" value="user" required />
+                User
+              </label>
+              <label className="flex items-center gap-3 border-2 p-2 bg-gray-600 rounded-xl">
+                <input type="radio" name="userType" value="agent" required />
+                Agent
+              </label>
             </div>
             <div>
               <input type="submit" value={`Register${textDot}`} className="btn btn-accent w-full font-semibold text-xl" />

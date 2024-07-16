@@ -22,7 +22,7 @@ const TransactionTable = ({ transactions }) => {
             <tr key={transaction._id} className="border-b border-gray-200 hover">
               <td className="text-left py-2 px-4">{transaction.transactionId}</td>
               {user.role === 'admin' && <td className="text-center py-2 px-4">{transaction.senderMobile}</td>}
-              <td className="text-center py-2 px-4">{user.role === 'user' && transaction.receiverMobile === user.mobileNumber ? 'Received Money' : transaction.transactionType}</td>
+              <td className="text-center py-2 px-4">{user.role === 'user' && transaction.receiverMobile === user.mobileNumber ? transaction.transactionType === 'Bonus' ? 'Bonus' : 'Received Money' : transaction.transactionType}</td>
 
 
               {user.role === 'admin' && <td className="text-center py-2 px-4">{transaction.receiverMobile}</td>}

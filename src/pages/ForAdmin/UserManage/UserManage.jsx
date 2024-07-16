@@ -112,6 +112,7 @@ const UserManage = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="mr-2">{user.status === 'pending' ? 'New Account' : ''}</span>
                     <label className="switch">
                       <input
                         type="checkbox"
