@@ -20,7 +20,6 @@ const Root = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
