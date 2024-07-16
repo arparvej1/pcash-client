@@ -6,6 +6,7 @@ const Sidebar = () => {
   const { user, logOut } = useAuth();
   const location = useLocation();
   // const { isAdmin, adminLoading, isAgent, agentLoading, isAgentOrAdmin, agentOrAdminLoading } = useUserPower();
+  const isAgent = true;
   const isAdmin = true;
 
   const navLinks = <>
@@ -18,7 +19,16 @@ const Sidebar = () => {
         <li><NavLink to='/send-money'>Send Money</NavLink></li>
         <li><NavLink to='/cash-out'>Cash Out</NavLink></li>
         <li><NavLink to='/cash-in'>Cash In</NavLink></li>
-        <li><NavLink to='/transactions-history'>Transaction sHistory</NavLink></li>
+        <li><NavLink to='/transactions-history'>Transactions History</NavLink></li>
+        
+      </>
+    }
+    {
+      isAgent && <>
+        <li className="bg-info text-info-content text-center font-semibold text-base py-1">Agent</li>
+        <li><NavLink to='/cash-out-manage'>Cash Out Manage</NavLink></li>
+        <li><NavLink to='/cash-in-manage'>Cash In Manage</NavLink></li>
+        <li><NavLink to='/agent-transactions-history'>Transactions History</NavLink></li>
         
       </>
     }

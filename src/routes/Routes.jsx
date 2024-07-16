@@ -12,6 +12,9 @@ import SendMoney from "../pages/ForUser/SendMoney/SendMoney";
 import CashIn from "../pages/ForUser/CashIn/CashIn";
 import CashOut from "../pages/ForUser/CashOut/CashOut";
 import UserTransactionsHistory from "../pages/ForUser/UserTransactionsHistory/UserTransactionsHistory";
+import CashOutManage from "../pages/ForAgent/CashOutManage/CashOutManage";
+import CashInManage from "../pages/ForAgent/CashInManage/CashInManage";
+import AgentTransactionsHistory from "../pages/ForAgent/AgentTransactionsHistory/AgentTransactionsHistory";
 // import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -47,7 +50,18 @@ const router = createBrowserRouter([
       },
       // ------------- user end -----------------
       // ------------- agent start -----------------
-
+      {
+        path: '/cash-out-manage',
+        element: <PrivateRoutes><CashOutManage></CashOutManage></PrivateRoutes>
+      },
+      {
+        path: '/cash-in-manage',
+        element: <PrivateRoutes><CashInManage></CashInManage></PrivateRoutes>
+      },
+      {
+        path: '/agent-transactions-history',
+        element: <PrivateRoutes><AgentTransactionsHistory></AgentTransactionsHistory></PrivateRoutes>
+      },
       // ------------- agent end -----------------
       // ------------- admin start -----------------
 
