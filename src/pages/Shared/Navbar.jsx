@@ -76,7 +76,7 @@ const Navbar = () => {
       <div className="navbar-end">
         {/* --------- balance start -------- */}
         <div className='flex justify-end'>
-          <div className='flex min-w-48 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
+          <div className='flex min-w-48 gap-2 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
             <p>Balance: </p>
             {/* <div className="divider my-0"></div> */}
             <p className='cursor-pointer w-full text-center' onClick={() => setShowBalance(!showBalance)}>

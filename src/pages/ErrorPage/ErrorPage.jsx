@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 const ErrorPage = () => {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     navigate('/');
-  //   }, 100);
-  //   return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
-  // }, []);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigate('/');
+    }, 100);
+    return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
+  }, []);
   return (
     <>
       <Helmet>

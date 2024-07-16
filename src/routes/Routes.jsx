@@ -15,6 +15,8 @@ import UserTransactionsHistory from "../pages/ForUser/UserTransactionsHistory/Us
 import CashOutManage from "../pages/ForAgent/CashOutManage/CashOutManage";
 import CashInManage from "../pages/ForAgent/CashInManage/CashInManage";
 import AgentTransactionsHistory from "../pages/ForAgent/AgentTransactionsHistory/AgentTransactionsHistory";
+import AllTransactionsHistory from "../pages/ForAdmin/AllTransactionsHistory/AllTransactionsHistory";
+import UserManage from "../pages/ForAdmin/UserManage/UserManage";
 // import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
 
 const router = createBrowserRouter([
@@ -64,7 +66,14 @@ const router = createBrowserRouter([
       },
       // ------------- agent end -----------------
       // ------------- admin start -----------------
-
+      {
+        path: '/user-manage',
+        element: <PrivateRoutes><UserManage></UserManage></PrivateRoutes>
+      },
+      {
+        path: '/all-transactions-history',
+        element: <PrivateRoutes><AllTransactionsHistory></AllTransactionsHistory></PrivateRoutes>
+      },
       // ------------- admin end -----------------
     ]
   },

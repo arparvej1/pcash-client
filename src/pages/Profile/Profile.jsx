@@ -12,7 +12,7 @@ const Profile = () => {
   const [showBalance, setShowBalance] = useState(false);
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if(showBalance){
+      if (showBalance) {
         setShowBalance(false);
       }
     }, 5000);
@@ -74,11 +74,11 @@ const Profile = () => {
             <div className='flex flex-col gap-3 md:text-xl'>
               <div>
                 <p>Account Creation Date & Time:</p>
-                {/* <p className=' font-semibold'>{user.metadata.creationTime}</p> */}
+                <p className=' font-semibold'>{user?.creationTime || 'Not Found'}</p>
               </div>
               <div>
                 <p>Last Login:</p>
-                {/* <p className=' font-semibold'>{user.metadata.lastSignInTime}</p> */}
+                <p className=' font-semibold'>{user?.lastLogInTime}</p>
               </div>
             </div>
           </div>
