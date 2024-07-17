@@ -32,7 +32,7 @@ const RequestTransactionTable = ({ transactions, handleAccept }) => {
 
 
               <td className="text-center py-2 px-4">{transaction.amount}</td>
-              <td className="text-center py-2 px-4">{transaction.fee}</td>
+              <td className="text-center py-2 px-4">{transaction.fee % 1 > 0 ? parseFloat(transaction.fee).toFixed(2) : transaction.fee}</td>
               <td className="text-center py-2 px-4">{transaction.transactionTime}</td>
               <td className="text-center py-2 px-4">
                 <span

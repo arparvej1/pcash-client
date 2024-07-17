@@ -105,7 +105,7 @@ const UserManage = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{user.mobileNumber}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">{user.balance}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">{user.balance % 1 > 0 ? parseFloat(user.balance).toFixed(2) : user.balance}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
                       {user.role}
