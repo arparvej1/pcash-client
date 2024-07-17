@@ -41,6 +41,18 @@ const AuthProvider = ({ children }) => {
     onAuthStateChanged();
   }, [token]);
 
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoading(true);
+      onAuthStateChanged();
+    }, 600000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+
   const [showBalance, setShowBalance] = useState(false);
   useEffect(() => {
     onAuthStateChanged();
@@ -55,6 +67,7 @@ const AuthProvider = ({ children }) => {
   const authInfo = {
     user,
     loading,
+    setLoading,
     setToken,
     logOut,
     onAuthStateChanged,

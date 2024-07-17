@@ -1,8 +1,17 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../pages/Shared/Sidebar";
 import Navbar from "../pages/Shared/Navbar";
+import useAuth from "../hooks/useAuth";
 
 const Root = () => {
+  const { loading } = useAuth();
+  if (loading) {
+    return (
+      <div className="flex justify-center mt-10">
+        <span className="loading loading-ring loading-lg"></span>
+      </div>
+    )
+  }
   return (
     <>
       <div className="max-w-screen-xl mx-5 xl:px-5 2xl:px-0 xl:mx-auto border-4 border-green-400">

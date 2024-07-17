@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { ToastContainer } from 'react-toastify';
 import useAuth from '../../hooks/useAuth';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -46,7 +47,7 @@ const Profile = () => {
               </div>
             </div>
             <div>
-              {/* <Link to='/update-profile' className='text-xl font-semibold underline btn btn-ghost text-blue-600'>Edit Profile</Link> */}
+              <Link to='/update-profile' className='text-xl font-semibold underline btn btn-ghost text-blue-600'>Edit Profile</Link>
             </div>
           </div>
         </div>

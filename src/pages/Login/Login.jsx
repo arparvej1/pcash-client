@@ -13,7 +13,7 @@ import { AuthContext } from '../../provider/AuthProvider';
 import axios from 'axios';
 
 const Login = () => {
-  const { user, setToken } = useContext(AuthContext);
+  const { user, token, setToken } = useContext(AuthContext);
   const [textDot, setTextDot] = useState('');
   const navigate = useNavigate();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
@@ -72,7 +72,7 @@ const Login = () => {
       .catch(function (error) {
         setTextDot('');
         console.log(error);
-        if (error.response.data === 'user blocked') {
+        if (error?.response?.data === 'user blocked') {
           toast.error('Login failed! This User Blocked.');
         } else {
           setLoginFailedMsg('Please enter correct information.');
@@ -88,7 +88,7 @@ const Login = () => {
     if (user) {
       navigate('/');
     }
-  }, [user]);
+  }, [user, token]);
 
   return (
     <>

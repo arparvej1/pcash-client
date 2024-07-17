@@ -19,6 +19,7 @@ import AllTransactionsHistory from "../pages/ForAdmin/AllTransactionsHistory/All
 import UserManage from "../pages/ForAdmin/UserManage/UserManage";
 import AdminRoutes from "../PrivateRoutes/isAdmin/AdminRoutes";
 import AgentRoutes from "../PrivateRoutes/isAgent/AgentRoutes";
+import UpdateProfile from "../pages/Profile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: '/profile',
         element: <PrivateRoutes><Profile></Profile></PrivateRoutes>
+      },
+      {
+        path: '/update-profile',
+        element: <PrivateRoutes><UpdateProfile></UpdateProfile></PrivateRoutes>
       },
       // ------------- user start -----------------
       {
