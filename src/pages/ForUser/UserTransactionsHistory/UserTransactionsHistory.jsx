@@ -29,7 +29,7 @@ const UserTransactionsHistory = () => {
       </Helmet>
       <h3 className="font-semibold text-2xl text-center my-3 text-black">Transactions History</h3>
 
-      <div className="container mx-auto p-4">
+      <div>
         <TransactionTable transactions={myTransactions.slice().reverse().slice(0, 10)} />
       </div>
     </div>

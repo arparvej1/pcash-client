@@ -87,7 +87,7 @@ const SendMoney = () => {
       <div>
         <form
           onSubmit={handleSendMoney}
-          className="w-3/4 mx-auto gap-5 text-black">
+          className="md:w-3/4 mx-auto gap-5 text-black">
           <div className="border-2 border-primary rounded-xl p-5 md:w-2/3 lg:w-3/5 mx-auto">
             <label className="form-control w-full">
               <div>

@@ -27,7 +27,7 @@ const AllTransactionsHistory = () => {
       </Helmet>
       <h3 className="font-semibold text-2xl text-center my-3 text-black">All Transactions History</h3>
 
-      <div className="container mx-auto p-4">
+      <div>
         <TransactionTable transactions={allTransactions.slice().reverse()} />
       </div>
     </div>

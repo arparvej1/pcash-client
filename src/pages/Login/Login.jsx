@@ -94,9 +94,6 @@ const Login = () => {
         <title> Login | pCash </title>
       </Helmet>
       <div className='flex flex-col md:flex-row max-w-7xl mx-3 md:mx-auto mt-8'>
-        <div className='hidden md:block'>
-        </div>
-        {/* ------ */}
         <div className='md:w-2/3 lg:w-2/5 rounded-2xl bg-base-200 p-5 md:p-10 md:mx-auto bg-[url("https://wallpapercave.com/wp/wp2939993.jpg")] bg-cover'>
           <h3 className="text-3xl font-semibold mb-6 text-center text-white">
             Login Now!
