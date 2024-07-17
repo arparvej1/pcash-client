@@ -35,7 +35,7 @@ const Home = () => {
           </div>
         </div>
         <div className='text-right navbar-end'>
-          <div className='flex justify-end'>
+          <div className='flex justify-center md:justify-end'>
             <div className='flex flex-col min-w-48 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
               <p>Balance</p>
               <div className="divider my-0"></div>

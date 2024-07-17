@@ -60,7 +60,7 @@ const UserManage = () => {
           <input
             type="text"
             className="border border-gray-300 rounded-md px-3 py-2 w-full sm:w-1/2"
-            placeholder="Search by name"
+            placeholder="Search by name, email, or mobile number"
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -107,7 +107,8 @@ const UserManage = () => {
                   <td className="px-6 py-4 whitespace-nowrap">{user.mobileNumber}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{user.balance % 1 > 0 ? parseFloat(user.balance).toFixed(2) : user.balance}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'admin' ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                      ${user.role === 'admin' ? 'bg-red-100 text-red-800' : user.role === 'agent' ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'}`}>
                       {user.role}
                     </span>
                   </td>

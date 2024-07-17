@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
 import { CiUser } from "react-icons/ci";
-import { TbPhotoEdit } from "react-icons/tb";
 import { MdMailOutline } from "react-icons/md";
 import { GoLock } from "react-icons/go";
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
@@ -94,11 +93,11 @@ const Register = () => {
     setFocus("fullName")
   }, [setFocus])
 
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate('/');
-  //   }
-  // }, [user]);
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <>
@@ -106,7 +105,7 @@ const Register = () => {
         <title> Register | pCash </title>
       </Helmet>
 
-      <div className='flex flex-col md:flex-row max-w-7xl mx-auto mt-2'>
+      <div className='flex flex-col md:flex-row max-w-7xl mx-3 md:mx-auto mt-2'>
         {/* ------ */}
         <div className='md:w-2/3 lg:w-2/5 rounded-2xl bg-base-200 p-5 md:p-8 md:mx-auto bg-[url("https://wallpapercave.com/wp/wp2939993.jpg")] bg-cover'>
           <h3 className="text-3xl font-semibold mb-6 text-center text-white">

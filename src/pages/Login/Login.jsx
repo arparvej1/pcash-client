@@ -1,11 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaGithub } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
-import { FcGoogle } from 'react-icons/fc';
 import { GoLock } from 'react-icons/go';
 import { VscEye, VscEyeClosed } from 'react-icons/vsc';
 import { MdMailOutline } from 'react-icons/md';
@@ -95,7 +93,7 @@ const Login = () => {
       <Helmet>
         <title> Login | pCash </title>
       </Helmet>
-      <div className='flex flex-col md:flex-row max-w-7xl mx-auto mt-8'>
+      <div className='flex flex-col md:flex-row max-w-7xl mx-3 md:mx-auto mt-8'>
         <div className='hidden md:block'>
         </div>
         {/* ------ */}

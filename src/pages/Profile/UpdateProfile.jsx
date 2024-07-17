@@ -60,7 +60,7 @@ const UpdateProfile = () => {
         <title> Update Profile | pCash </title>
       </Helmet>
       <div className='flex flex-col gap-3'>
-        <h3 className='font-bold text-4xl'>Update Profile</h3>
+        <h3 className='font-bold text-xl md:text-2xl lg:text-4xl'>Update Profile</h3>
         <div className='flex flex-col md:flex-row items-center gap-5 bg-base-200 p-8 rounded-xl'>
           <div className=''>
             <img className='w-32 h-32 rounded-full' src={user.photo_url || "https://i.ibb.co/ZT5tByN/avatar-15-blue.jpg"} alt={user.name} />

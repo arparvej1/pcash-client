@@ -22,7 +22,7 @@ const Profile = () => {
         <title> My Profile | pCash </title>
       </Helmet>
       <div className='flex flex-col gap-3'>
-        <h3 className='font-bold text-4xl  text-accent-content'>My Profile</h3>
+        <h3 className='font-bold text-xl md:text-2xl lg:text-4xl  text-accent-content'>My Profile</h3>
         <div className='flex flex-col md:flex-row items-center gap-5 bg-base-200 p-8 rounded-xl'>
           <div className=''>
             <img className='w-32 h-32 rounded-full' src={user.photo_url ? user.photo_url : "https://i.ibb.co/ZT5tByN/avatar-15-blue.jpg"} alt={user.name} />
@@ -36,8 +36,8 @@ const Profile = () => {
               {user.role === 'agent' && <p className='p-2 m-1 bg-success rounded-xl text-white font-semibold'>Agent</p>}
             </div>
           </div>
-          <div className='text-right navbar-end'>
-            <div className='flex justify-end'>
+          <div className='text-center md:text-right navbar-end'>
+            <div className='flex justify-center md:justify-end'>
               <div className='flex flex-col min-w-48 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
                 <p>Balance</p>
                 <div className="divider my-0"></div>

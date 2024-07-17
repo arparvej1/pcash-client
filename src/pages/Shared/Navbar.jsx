@@ -45,17 +45,17 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar-start flex flex-col md:flex-row gap-2">
         <div className='flex gap-2'>
-          <div className="dropdown">
+          {/* <div className="dropdown hidden">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </div>
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[50] p-2 shadow bg-base-100 rounded-box w-52">
               {navLinks}
             </ul>
-          </div>
+          </div> */}
           <Link to='/' className="btn bg-gradient-to-r from-orange-400 to-yellow-500 text-xl md:text-2xl text-white">pCash</Link>
         </div>
-        <span className='ml-4 lg:ml-8 text-xl font-semibold text-white'>{user?.name} | {user?.mobileNumber}</span>
+        <span className='md:ml-4 lg:ml-8 md:text-xl font-semibold text-white'>{user?.name} | {user?.mobileNumber}</span>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 text-lg">
@@ -65,9 +65,9 @@ const Navbar = () => {
       <div className="flex flex-col-reverse md:flex-row navbar-end gap-1">
         {/* --------- balance start -------- */}
         <div className='flex justify-end'>
-          <div className='flex flex-col md:flex-row min-w-48 gap-2 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
-            <p>Balance: </p>
-            <div className="divider my-0 md:hidden"></div>
+          <div className='flex flex-col md:flex-row md:min-w-48 md:gap-2 items-center font-bold md:text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
+            <p>Balance<span className='hidden md:inline'>:</span> </p>
+            <div className="divider my-0 py-0 md:hidden"></div>
             <p className='cursor-pointer w-full text-center' onClick={() => setShowBalance(!showBalance)}>
               <span>{showBalance ? parseFloat(user?.balance).toFixed(2) : "Tap for Balance"}</span>
             </p>
