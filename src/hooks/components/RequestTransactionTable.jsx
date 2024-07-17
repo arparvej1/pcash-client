@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import useAuth from '../useAuth';
 
-const RequestTransactionTable = ({ transactions, handleAcceptCashOut }) => {
+const RequestTransactionTable = ({ transactions, handleAccept }) => {
   const { user } = useAuth();
   return (
     <div className="overflow-x-auto">
@@ -35,7 +35,7 @@ const RequestTransactionTable = ({ transactions, handleAcceptCashOut }) => {
               <td className="text-center py-2 px-4">{transaction.transactionTime}</td>
               <td className="text-center py-2 px-4">
                 <span
-                  onClick={() => handleAcceptCashOut(transaction)}
+                  onClick={() => handleAccept(transaction)}
                   className={`${transaction.status === 'pending' ? 'cursor-pointer bg-blue-700 text-white btn' : ''}`}>{transaction.status === 'pending' ? 'Accept' : transaction.status}</span>
               </td>
             </tr>
@@ -48,7 +48,7 @@ const RequestTransactionTable = ({ transactions, handleAcceptCashOut }) => {
 
 RequestTransactionTable.propTypes = {
   transactions: PropTypes.array,
-  handleAcceptCashOut: PropTypes.func
+  handleAccept: PropTypes.func
 }
 
 export default RequestTransactionTable;

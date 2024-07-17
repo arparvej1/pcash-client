@@ -114,7 +114,7 @@ const CashOut = () => {
               {loginFailedMsg && <div className='mt-2 bg-blue-300 bg-opacity-75 p-3 rounded-2xl text-red-500'>{loginFailedMsg}</div>}
             </div>
             <br />
-            <input type="submit" value={'Cash Out'} className="btn bg-secondary text-secondary-content text-lg w-full" />
+            <input type="submit" value={'Cash Out Request'} className="btn bg-secondary text-secondary-content text-lg w-full" />
           </div>
         </form>
       </div>
