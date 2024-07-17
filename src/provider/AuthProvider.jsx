@@ -17,9 +17,9 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const onAuthStateChanged = () => {
+  const onAuthStateChanged = async () => {
     if (token) {
-      axiosPublic.post(`/userCheck`, { token })
+      await axiosPublic.post(`/userCheck`, { token })
         .then(function (response) {
           // console.log(response.data);
           setUser(response.data); // Assuming user is authenticated based on response
@@ -41,12 +41,25 @@ const AuthProvider = ({ children }) => {
     onAuthStateChanged();
   }, [token]);
 
+  const [showBalance, setShowBalance] = useState(false);
+  useEffect(() => {
+    onAuthStateChanged();
+    const timeout = setTimeout(() => {
+      if (showBalance) {
+        setShowBalance(false);
+      }
+    }, 5000);
+    return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
+  }, [showBalance]);
+
   const authInfo = {
     user,
     loading,
     setToken,
     logOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    showBalance,
+    setShowBalance
   }
 
   return (

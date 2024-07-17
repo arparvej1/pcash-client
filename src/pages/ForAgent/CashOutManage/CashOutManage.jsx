@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import RequestTransactionTable from "../../../hooks/components/RequestTransactionTable";
+import { toast } from "react-toastify";
 
 const CashOutManage = () => {
   const { user, onAuthStateChanged } = useAuth();
@@ -31,11 +32,17 @@ const CashOutManage = () => {
     // --------- send server start -----
     axiosSecure.post(`/cash-out-accept`, transaction)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setMyRequestTransactions(response.data);
         onAuthStateChanged();
+        toast.success('Cash Out Successfully!');
       })
       .catch(function (error) {
+        if (error.response.data.slice(0, 1) !== '<') {
+          toast.warn(error.response.data);
+        } else {
+          toast.error('Cash Out failed!');
+        }
         console.log(error);
       });
     // --------- send server end -----
@@ -51,7 +58,7 @@ const CashOutManage = () => {
       <div className="container mx-auto p-4">
         <RequestTransactionTable
           transactions={myRequestTransactions.slice().reverse()}
-          handleAcceptCashOut={handleAcceptCashOut}
+          handleAccept={handleAcceptCashOut}
         />
       </div>
     </div>

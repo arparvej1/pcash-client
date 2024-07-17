@@ -66,7 +66,7 @@ const CashOut = () => {
         console.log('Cash Out Request Successfully!');
       })
       .catch(function (error) {
-        if (error.response.data) {
+        if (error.response.data.slice(0, 1) !== '<') {
           toast.warn(error.response.data);
         } else {
           toast.error('Cash Out failed!');

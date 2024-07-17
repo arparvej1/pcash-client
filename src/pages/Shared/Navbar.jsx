@@ -6,7 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, showBalance, setShowBalance } = useContext(AuthContext);
 
   // -------- theme start -----------------
   const [theme, setTheme] = useState(localStorage.getItem('theme') ? localStorage.getItem('theme') : 'light');
@@ -26,16 +26,6 @@ const Navbar = () => {
     }
   };
   // -------- theme end -----------------
-  const [showBalance, setShowBalance] = useState(false);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (showBalance) {
-        setShowBalance(false);
-      }
-    }, 5000);
-    return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
-  }, [showBalance]);
-
 
   const handleLogOut = () => {
     logOut()
@@ -79,11 +69,11 @@ const Navbar = () => {
             <p>Balance: </p>
             <div className="divider my-0 md:hidden"></div>
             <p className='cursor-pointer w-full text-center' onClick={() => setShowBalance(!showBalance)}>
-              <span>{showBalance ? user?.balance : "Tap for Balance"}</span>
+              <span>{showBalance ? parseFloat(user?.balance).toFixed(2) : "Tap for Balance"}</span>
             </p>
           </div>
         </div>
-        {/* --------- balance start -------- */}
+        {/* --------- balance end -------- */}
         <div className='flex gap-1'>
           {
             user ?

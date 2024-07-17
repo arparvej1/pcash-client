@@ -4,15 +4,15 @@ import useAuth from "../../hooks/useAuth";
 
 const Home = () => {
   const { user } = useAuth();
-  const [showBalance, setShowBalance] = useState(false);
+  const [showBalanceThis, setShowBalanceThis] = useState(false);
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (showBalance) {
-        setShowBalance(false);
+      if (showBalanceThis) {
+        setShowBalanceThis(false);
       }
     }, 5000);
     return () => clearTimeout(timeout); // Clean up the timeout on unmount if necessary
-  }, [showBalance]);
+  }, [showBalanceThis]);
   return (
     <div>
       <Helmet>
@@ -39,8 +39,8 @@ const Home = () => {
             <div className='flex flex-col min-w-48 items-center font-bold text-xl bg-accent text-accent-content py-2 px-4 rounded-xl'>
               <p>Balance</p>
               <div className="divider my-0"></div>
-              <p className='cursor-pointer w-full text-center' onClick={() => setShowBalance(!showBalance)}>
-                <span>{showBalance ? user.balance : "Tap for Balance"}</span>
+              <p className='cursor-pointer w-full text-center' onClick={() => setShowBalanceThis(!showBalanceThis)}>
+                <span>{showBalanceThis ? parseFloat(user?.balance).toFixed(2) : "Tap for Balance"}</span>
               </p>
             </div>
           </div>

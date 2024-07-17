@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import RequestTransactionTable from "../../../hooks/components/RequestTransactionTable";
+import { toast } from "react-toastify";
 
 const CashInManage = () => {
   const { user, onAuthStateChanged } = useAuth();
@@ -31,11 +32,17 @@ const CashInManage = () => {
     // --------- send server start -----
     axiosSecure.post(`/cash-in-accept`, transaction)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
+        toast.success('Cash In Successfully!');
         setMyRequestTransactions(response.data);
         onAuthStateChanged();
       })
       .catch(function (error) {
+        if (error.response.data.slice(0, 1) !== '<') {
+          toast.warn(error.response.data);
+        } else {
+          toast.error('Cash In failed!');
+        }
         console.log(error);
       });
     // --------- send server end -----
