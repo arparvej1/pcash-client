@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import useAuth from '../useAuth';
+import { ToastContainer } from 'react-toastify';
 
 const TransactionModel = ({ transaction }) => {
   const { user } = useAuth();
@@ -70,6 +71,7 @@ const TransactionModel = ({ transaction }) => {
             </div>
           </div>
         </div>
+        <ToastContainer />
       </dialog>
     </div>
   );

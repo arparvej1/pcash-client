@@ -6,9 +6,11 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
 import PendingAccount from "../../../hooks/components/PendingAccount";
+import TransactionModel from "../../../hooks/components/TransactionModel";
+import Swal from 'sweetalert2';
 
 const SendMoney = () => {
-  const {user, onAuthStateChanged } = useAuth();
+  const { user, onAuthStateChanged } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
 
@@ -16,6 +18,13 @@ const SendMoney = () => {
   const handlePinShow = () => {
     setPinShow(!pinShow);
   }
+
+  const [thisTransactionModel, setThisTransactionModel] = useState({});
+
+  const handleTransactionModel = (transaction) => {
+    setThisTransactionModel(transaction);
+    document.getElementById('transactionModel').showModal();
+  };
 
   const handleSendMoney = (e) => {
     e.preventDefault();
@@ -51,19 +60,16 @@ const SendMoney = () => {
       amount: parseInt(amount),
       pin
     }
-    console.log(sendMoneyInfo);
+    // console.log(sendMoneyInfo);
 
     // --------- send server start -----
     axiosSecure.post(`/send-money`, sendMoneyInfo)
       .then(function (response) {
-        console.log(response.data);
+        // console.log('data',response.data);
         e.target.reset();
-        if (response.data.token) {
-          console.log(response.data);
-        }
+        handleTransactionModel(response.data);
         toast.success('Send Money Successfully!');
         onAuthStateChanged();
-        // navigate(location?.state ? location.state : '/');
         console.log('Send Money Successfully!');
       })
       .catch(function (error) {
@@ -77,7 +83,7 @@ const SendMoney = () => {
     // --------- send server end -----
     console.log('Request Send Money.');
 
-  }
+  };
 
   if (user.status === 'pending') return <PendingAccount />;
 
@@ -121,7 +127,7 @@ const SendMoney = () => {
           </div>
         </form>
       </div>
-      <ToastContainer />
+      <TransactionModel transaction={thisTransactionModel} />
     </div>
   );
 };
