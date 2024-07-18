@@ -11,15 +11,18 @@ const CashInManage = () => {
   const { user, onAuthStateChanged } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [myRequestTransactions, setMyRequestTransactions] = useState([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   const loadTransactions = () => {
     // --------- send server start -----
     axiosSecure.get(`/cash-in-request-transactions`)
       .then(function (response) {
         // console.log(response.data);
+        setDataLoading(false);
         setMyRequestTransactions(response.data);
       })
       .catch(function (error) {
+        setDataLoading(false);
         console.log(error);
       });
     // --------- send server end -----
@@ -110,6 +113,18 @@ const CashInManage = () => {
           handleAccept={handleAcceptCashIn}
           handleReject={handleRejectCashIn}
         />
+        {
+          dataLoading ? <div className="flex justify-center items-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+            :
+            myRequestTransactions.length < 1 ?
+              <div>
+                No Data Found
+              </div>
+              :
+              <></>
+        }
       </div>
     </div>
   );
