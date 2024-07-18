@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import useAuth from '../useAuth';
 import { ToastContainer } from 'react-toastify';
 
-const RequestTransactionTable = ({ transactions, handleAccept }) => {
+const RequestTransactionTable = ({ transactions, handleAccept, handleReject }) => {
   const { user } = useAuth();
   return (
     <div className="overflow-x-auto">
@@ -38,6 +38,9 @@ const RequestTransactionTable = ({ transactions, handleAccept }) => {
                 <span
                   onClick={() => handleAccept(transaction)}
                   className={`${transaction.status === 'pending' ? 'cursor-pointer bg-blue-700 text-white btn' : ''}`}>{transaction.status === 'pending' ? 'Accept' : transaction.status}</span>
+                <span
+                  onClick={() => handleReject(transaction)}
+                  className={`${transaction.status === 'pending' ? 'cursor-pointer bg-red-700 text-white btn' : ''}`}>{transaction.status === 'pending' ? 'Reject' : transaction.status}</span>
               </td>
             </tr>
           ))}
@@ -50,7 +53,8 @@ const RequestTransactionTable = ({ transactions, handleAccept }) => {
 
 RequestTransactionTable.propTypes = {
   transactions: PropTypes.array,
-  handleAccept: PropTypes.func
+  handleAccept: PropTypes.func,
+  handleReject: PropTypes.func
 }
 
 export default RequestTransactionTable;

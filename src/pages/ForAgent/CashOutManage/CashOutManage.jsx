@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import RequestTransactionTable from "../../../hooks/components/RequestTransactionTable";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
 
 const CashOutManage = () => {
   const { user, onAuthStateChanged } = useAuth();
@@ -35,7 +36,14 @@ const CashOutManage = () => {
         // console.log(response.data);
         setMyRequestTransactions(response.data);
         onAuthStateChanged();
-        toast.success('Cash Out Successfully!');
+        // toast.success('Cash Out Successfully!');
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Cash Out Successfully",
+          showConfirmButton: false,
+          timer: 1500
+        });
       })
       .catch(function (error) {
         if (error.response.data.slice(0, 1) !== '<') {
@@ -46,7 +54,48 @@ const CashOutManage = () => {
         console.log(error);
       });
     // --------- send server end -----
-  }
+  };
+
+  const handleRejectCashOut = (transaction) => {
+    console.log(transaction);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to reject it!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // --------- send server start -----
+        axiosSecure.post(`/cash-out-reject`, transaction)
+          .then(function (response) {
+            // console.log(response.data);
+            setMyRequestTransactions(response.data);
+            onAuthStateChanged();
+            // toast.success('Cash Out Reject!');
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Reject",
+              text: "Cash Out Reject!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+          })
+          .catch(function (error) {
+            if (error.response.data.slice(0, 1) !== '<') {
+              toast.warn(error.response.data);
+            } else {
+              toast.error('Cash Out Reject Failed!');
+            }
+            console.log(error);
+          });
+        // --------- send server end -----
+      }
+    });
+  };
 
   return (
     <div>
@@ -59,6 +108,7 @@ const CashOutManage = () => {
         <RequestTransactionTable
           transactions={myRequestTransactions.slice().reverse()}
           handleAccept={handleAcceptCashOut}
+          handleReject={handleRejectCashOut}
         />
       </div>
     </div>
