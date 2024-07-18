@@ -1,8 +1,18 @@
 import PropTypes from 'prop-types';
 import useAuth from '../useAuth';
+import TransactionModel from './TransactionModel';
+import { useState } from 'react';
 
 const TransactionTable = ({ transactions }) => {
   const { user } = useAuth();
+  const [thisTransactionModel, setThisTransactionModel] = useState({});
+
+  const handleTransactionModel = (transaction) => {
+    // console.log(transaction);
+    setThisTransactionModel(transaction);
+    document.getElementById('transactionModel').showModal();
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white border border-gray-200 table">
@@ -21,7 +31,9 @@ const TransactionTable = ({ transactions }) => {
         <tbody>
           {transactions.map(transaction => (
             <tr key={transaction._id} className="border-b border-gray-200 hover">
-              <td className="text-left py-2 px-4">{transaction.transactionId}</td>
+              <td
+                onClick={() => handleTransactionModel(transaction)}
+                className="text-left py-2 px-4 cursor-pointer hover:underline" title='Click for More Information'>{transaction.transactionId}</td>
               {user.role === 'admin' && <td className="text-center py-2 px-4">{transaction.senderMobile}</td>}
               <td className="text-center py-2 px-4">{user.role === 'user' && transaction.receiverMobile === user.mobileNumber && transaction.transactionType === 'Send Money' ? 'Received Money' : transaction.transactionType}</td>
 
@@ -38,6 +50,7 @@ const TransactionTable = ({ transactions }) => {
           ))}
         </tbody>
       </table>
+      <TransactionModel transaction={thisTransactionModel} />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const UserTransactionsHistory = () => {
     // --------- send server start -----
     axiosSecure.get(`/my-transactions`)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setMyTransactions(response.data);
         setDataLoading(false);
       })
