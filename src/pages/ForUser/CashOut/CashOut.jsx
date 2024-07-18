@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { GoLock } from "react-icons/go";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
 import PendingAccount from "../../../hooks/components/PendingAccount";
+import TransactionModel from "../../../hooks/components/TransactionModel";
 
 const CashOut = () => {
   const {user, onAuthStateChanged } = useAuth();
@@ -15,7 +16,13 @@ const CashOut = () => {
   const [pinShow, setPinShow] = useState(false);
   const handlePinShow = () => {
     setPinShow(!pinShow);
-  }
+  };
+  
+  const [thisTransactionModel, setThisTransactionModel] = useState({});
+  const handleTransactionModel = (transaction) => {
+    setThisTransactionModel(transaction);
+    document.getElementById('transactionModel').showModal();
+  };
 
   const handleCashOut = (e) => {
     e.preventDefault();
@@ -51,16 +58,14 @@ const CashOut = () => {
       amount: parseInt(amount),
       pin
     }
-    console.log(cashOutInfo);
+    // console.log(cashOutInfo);
 
     // --------- send server start -----
     axiosSecure.post(`/cash-out-request`, cashOutInfo)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         e.target.reset();
-        if (response.data.token) {
-          console.log(response.data);
-        }
+        handleTransactionModel(response.data);
         toast.success('Cash Out Request Successfully!');
         onAuthStateChanged();
         // navigate(location?.state ? location.state : '/');
@@ -77,7 +82,7 @@ const CashOut = () => {
     // --------- send server end -----
     console.log('Request Cash Out.');
 
-  }
+  };
 
   if (user.status === 'pending') return <PendingAccount />;
 
@@ -121,7 +126,7 @@ const CashOut = () => {
           </div>
         </form>
       </div>
-      <ToastContainer />
+      <TransactionModel transaction={thisTransactionModel} />
     </div>
   );
 };

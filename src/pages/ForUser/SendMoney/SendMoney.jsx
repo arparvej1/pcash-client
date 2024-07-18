@@ -1,4 +1,4 @@
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { GoLock } from "react-icons/go";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -20,7 +20,6 @@ const SendMoney = () => {
   }
 
   const [thisTransactionModel, setThisTransactionModel] = useState({});
-
   const handleTransactionModel = (transaction) => {
     setThisTransactionModel(transaction);
     document.getElementById('transactionModel').showModal();

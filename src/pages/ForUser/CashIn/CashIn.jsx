@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
 import PendingAccount from "../../../hooks/components/PendingAccount";
+import TransactionModel from "../../../hooks/components/TransactionModel";
 
 const CashIn = () => {
   const { user, onAuthStateChanged } = useAuth();
@@ -15,7 +16,13 @@ const CashIn = () => {
   const [pinShow, setPinShow] = useState(false);
   const handlePinShow = () => {
     setPinShow(!pinShow);
-  }
+  };
+
+  const [thisTransactionModel, setThisTransactionModel] = useState({});
+  const handleTransactionModel = (transaction) => {
+    setThisTransactionModel(transaction);
+    document.getElementById('transactionModel').showModal();
+  };
 
   const handleCashIn = (e) => {
     e.preventDefault();
@@ -51,16 +58,14 @@ const CashIn = () => {
       amount: parseInt(amount),
       pin
     }
-    console.log(cashInInfo);
+    // console.log(cashInInfo);
 
     // --------- send server start -----
     axiosSecure.post(`/cash-in-request`, cashInInfo)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         e.target.reset();
-        if (response.data.token) {
-          console.log(response.data);
-        }
+        handleTransactionModel(response.data);
         toast.success('Cash In Request Successfully!');
         onAuthStateChanged();
         // navigate(location?.state ? location.state : '/');
@@ -77,7 +82,7 @@ const CashIn = () => {
     // --------- send server end -----
     console.log('Request Cash In.');
 
-  }
+  };
 
   if (user.status === 'pending') return <PendingAccount />;
 
@@ -121,7 +126,7 @@ const CashIn = () => {
           </div>
         </form>
       </div>
-      <ToastContainer />
+      <TransactionModel transaction={thisTransactionModel} />
     </div>
   );
 };
