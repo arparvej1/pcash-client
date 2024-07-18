@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import RequestTransactionTable from "../../../hooks/components/RequestTransactionTable";
 import { toast } from "react-toastify";
 import Swal from 'sweetalert2';
+import PendingAccount from "../../../hooks/components/PendingAccount";
 
 const CashOutManage = () => {
   const { user, onAuthStateChanged } = useAuth();
@@ -95,6 +96,8 @@ const CashOutManage = () => {
       }
     });
   };
+
+  if (user.status === 'pending') return <PendingAccount />;
 
   return (
     <div>

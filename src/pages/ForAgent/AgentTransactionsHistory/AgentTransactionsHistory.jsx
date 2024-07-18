@@ -2,8 +2,11 @@ import { Helmet } from "react-helmet-async";
 import TransactionTable from "../../../hooks/components/TransactionTable";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
+import PendingAccount from "../../../hooks/components/PendingAccount";
+import useAuth from "../../../hooks/useAuth";
 
 const AgentTransactionsHistory = () => {
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [myTransactions, setMyTransactions] = useState([]);
 
@@ -19,6 +22,8 @@ const AgentTransactionsHistory = () => {
       });
     // --------- send server end -----
   }, []);
+
+  if (user.status === 'pending') return <PendingAccount />;
   
   return (
     <div>

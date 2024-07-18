@@ -5,9 +5,10 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import useAuth from "../../../hooks/useAuth";
+import PendingAccount from "../../../hooks/components/PendingAccount";
 
 const SendMoney = () => {
-  const { onAuthStateChanged } = useAuth();
+  const {user, onAuthStateChanged } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [loginFailedMsg, setLoginFailedMsg] = useState('');
 
@@ -77,6 +78,8 @@ const SendMoney = () => {
     console.log('Request Send Money.');
 
   }
+
+  if (user.status === 'pending') return <PendingAccount />;
 
   return (
     <div>

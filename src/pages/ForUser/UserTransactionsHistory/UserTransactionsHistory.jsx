@@ -3,6 +3,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import TransactionTable from "../../../hooks/components/TransactionTable";
+import PendingAccount from "../../../hooks/components/PendingAccount";
 
 const UserTransactionsHistory = () => {
   const { user } = useAuth();
@@ -21,6 +22,8 @@ const UserTransactionsHistory = () => {
       });
     // --------- send server end -----
   }, []);
+
+  if (user.status === 'pending') return <PendingAccount />;
 
   return (
     <div>
