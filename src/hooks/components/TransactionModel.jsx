@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import useAuth from '../useAuth';
 
 const TransactionModel = ({ transaction }) => {
+  const { user } = useAuth();
   const { transactionId, senderMobile, receiverMobile, transactionType, amount, fee, transactionTime, status } = transaction;
 
   const [copied, setCopied] = useState(false);
@@ -27,9 +29,8 @@ const TransactionModel = ({ transaction }) => {
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
           </form>
 
-
           <div className='flex flex-col justify-center items-center mb-2 gap-2'>
-            <h3 className={`font-bold text-xl md:text-2xl lg:text-4xl ${status === 'rejected' ? 'text-red-700' : 'text-green-700'}`}>{transactionType} {status === 'rejected' ? 'Failed' : ''}</h3>
+            <h3 className={`font-bold text-xl md:text-2xl lg:text-4xl ${status === 'rejected' ? 'text-red-700' : 'text-green-700'}`}>{user.role === 'user' && receiverMobile === user.mobileNumber && transactionType === 'Send Money' ? 'Received Money' : transactionType} {status === 'rejected' ? 'Failed' : ''}</h3>
             <p className={`capitalize ${status === 'rejected' ? 'text-red-700' : ''}`}>{status}</p>
             <p className={`capitalize ${status === 'rejected' ? 'text-red-700' : ''}`}>{transactionTime}</p>
           </div>
@@ -38,8 +39,8 @@ const TransactionModel = ({ transaction }) => {
               <table className="table">
                 <tbody>
                   <tr className="font-bold text-lg">
-                    <th className='text-right'>Receiver Number:</th>
-                    <td>{receiverMobile}</td>
+                    <th className='text-right'>Mobile Number:</th>
+                    <td>{transaction.receiverMobile === user.mobileNumber ? transaction.senderMobile : transaction.receiverMobile}</td>
                   </tr>
                   <tr>
                     <th className='text-right'>TransactionId:</th>
@@ -62,7 +63,7 @@ const TransactionModel = ({ transaction }) => {
                   </tr>
                   <tr>
                     <th className='text-right'>My Number:</th>
-                    <td>{senderMobile}</td>
+                    <td>{user.mobileNumber}</td>
                   </tr>
                 </tbody>
               </table>
