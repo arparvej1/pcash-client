@@ -9,6 +9,7 @@ const UserTransactionsHistory = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [myTransactions, setMyTransactions] = useState([]);
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     // --------- send server start -----
@@ -16,8 +17,10 @@ const UserTransactionsHistory = () => {
       .then(function (response) {
         console.log(response.data);
         setMyTransactions(response.data);
+        setDataLoading(false);
       })
       .catch(function (error) {
+        setDataLoading(false);
         console.log(error);
       });
     // --------- send server end -----
@@ -34,6 +37,18 @@ const UserTransactionsHistory = () => {
 
       <div>
         <TransactionTable transactions={myTransactions.slice().reverse().slice(0, 10)} />
+        {
+          dataLoading ? <div className="flex justify-center items-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+            :
+            myTransactions.length < 1 ?
+              <div>
+                No Data Found
+              </div>
+              :
+              <></>
+        }
       </div>
     </div>
   );

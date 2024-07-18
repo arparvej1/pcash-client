@@ -10,6 +10,7 @@ const UserManage = () => {
   const axiosSecure = useAxiosSecure(); // Assuming useAxiosSecure hook provides Axios instance with authorization header
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [dataLoading, setDataLoading] = useState(true);
 
   useEffect(() => {
     fetchUsers();
@@ -18,8 +19,10 @@ const UserManage = () => {
   const fetchUsers = async () => {
     try {
       const response = await axiosSecure.get(`/users`);
+      setDataLoading(false);
       setUsers(response.data);
     } catch (error) {
+      setDataLoading(false);
       console.error("Error fetching users:", error);
     }
   };
@@ -127,6 +130,20 @@ const UserManage = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div>
+          {
+            dataLoading ? <div className="flex justify-center items-center">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+              :
+              users.length < 1 ?
+                <div>
+                  No Data Found
+                </div>
+                :
+                <></>
+          }
         </div>
       </div>
     </div>

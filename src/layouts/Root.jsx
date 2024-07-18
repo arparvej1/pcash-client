@@ -18,7 +18,7 @@ const Root = () => {
         <div className="max-w-full bg-neutral">
           <Navbar></Navbar>
         </div>
-        <div className="grid md:grid-cols-6">
+        <div className="md:grid md:grid-cols-6">
           <div className="col-span-1">
             <Sidebar></Sidebar>
           </div>
@@ -26,6 +26,11 @@ const Root = () => {
             <div className="p-3">
               <Outlet></Outlet>
             </div>
+              <footer className="footer footer-center bg-base-300 text-base-content p-4">
+                <aside>
+                  <p>Copyright © {new Date().getFullYear()} - All right reserved by pCash</p>
+                </aside>
+              </footer>
           </div>
         </div>
       </div>
