@@ -78,8 +78,7 @@ const CashOutManage = () => {
             Swal.fire({
               position: "center",
               icon: "success",
-              title: "Reject",
-              text: "Cash Out Reject!",
+              title: "Cash Out Reject!",
               showConfirmButton: false,
               timer: 1500
             });
