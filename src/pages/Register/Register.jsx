@@ -33,7 +33,7 @@ const Register = () => {
 
     const uploadImage = e.target.profilePicture;
     const profilePicture = await uploadImage_imgbb(uploadImage);
-    if (!profilePicture) return;
+    if (!profilePicture) return toast.warning("Your picture can't upload.");
 
     const name = e.target.name.value;
     const email = e.target.email.value;
@@ -122,7 +122,7 @@ const Register = () => {
             <div>
               <span className='text-white'>Profile Picture:</span>
               <label htmlFor="profilePicture">
-                <input type="file" name="profilePicture" className="file-input file-input-bordered w-full" />
+                <input type="file" name="profilePicture" className="file-input file-input-bordered w-full" required />
               </label>
             </div>
             <div>
